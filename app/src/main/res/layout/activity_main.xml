@@ -292,7 +292,7 @@
         android:layout_marginTop="8dp"
         android:cursorVisible="false"
         android:fontFamily="@font/oswald"
-        android:maxLength="20"
+        android:maxLength="21"
         android:textColor="@color/colorSecondary"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/gridLayout"
@@ -301,7 +301,7 @@
         tools:text="12345678901234567890" />
 
     <TextView
-        android:id="@+id/txtLeftSide"
+        android:id="@+id/txtInterimCalculation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"

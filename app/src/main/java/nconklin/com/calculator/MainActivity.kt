@@ -3,19 +3,21 @@ package nconklin.com.calculator
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.math.absoluteValue
 
 class MainActivity : AppCompatActivity() {
 
+    // The confirmed text to be entered+
     private var outputText = ""
+    // The full number currently being entered
     private var operand = ""
-    private var firstNumber : Int = 0
+    private var outputList: MutableList<String> = mutableListOf()
 
     private fun clearAll() {
         operand = ""
-        firstNumber = 0
         outputText = ""
         txtOutput.text = ""
-        txtLeftSide.text = ""
+        txtInterimCalculation.text = ""
     }
 
     private fun clearOutput() {
@@ -33,17 +35,40 @@ class MainActivity : AppCompatActivity() {
         txtOutput.text = outputText + operand
     }
 
-    private fun getFirstNumber (operationType: String) {
-        // Check if anything was entered before pressing an operation
-        if (firstNumber == 0) {
-            firstNumber = operand.toInt()
-            outputText = operand //+ " " + operationType + " "
-            txtLeftSide.text = outputText + " " + operationType + " "
-            operand = ""
+    private fun addOperation(operationType : String) {
+        if (operand == "") {
+            // Do nothing
         } else {
-            // TODO: Do stuff here
+            outputText = operand
+            outputList.add(outputText)
+            outputList.add(operationType)
+            txtInterimCalculation.text = outputList.toString() // Leave for now to show the list is working
+            operand = ""
         }
+    }
 
+    private fun setPlusMinus(number : String) {
+        var number = number
+
+        if (number.toInt() > 0) {
+            number = "-$number"
+            txtOutput.text = number
+        } else if (number.toInt() < 0) {
+            number = number.toInt().absoluteValue.toString()
+            txtOutput.text = number
+        }
+    }
+
+    private fun addDecimal(number : String) {
+        var number = number
+
+        if (number == "") {
+            number = "0."
+            txtOutput.text = number
+        } else {
+            number += "."
+            txtOutput.text = number
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,23 +120,31 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnAdd.setOnClickListener {
-            getFirstNumber("+")
+            addOperation("+")
             clearOutput()
         }
 
         btnSubtract.setOnClickListener {
-            getFirstNumber("-")
+            addOperation("-")
             clearOutput()
         }
 
         btnMultiply.setOnClickListener {
-            getFirstNumber("*")
+            addOperation("*")
             clearOutput()
         }
 
         btnDivide.setOnClickListener {
-            getFirstNumber("/")
+            addOperation("/")
             clearOutput()
+        }
+
+        btnPlusMinus.setOnClickListener {
+            setPlusMinus(operand)
+        }
+
+        btnPeriod.setOnClickListener {
+            addDecimal(operand)
         }
     }
 }
