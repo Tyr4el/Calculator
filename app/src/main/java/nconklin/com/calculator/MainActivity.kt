@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     private var operand = ""
     private var outputList: MutableList<String> = mutableListOf()
 
+
     private fun clearAll() {
         operand = ""
         outputText = ""
@@ -26,6 +27,11 @@ class MainActivity : AppCompatActivity() {
         txtOutput.text = ""
     }
 
+    /**
+     * Adds the number input by the user onto the screen
+     *
+     * @param number The number that the user wishes to enter onto the screen
+     */
     private fun addOutputNumber (number : String) {
         if (operand == "0") {
             operand = ""
@@ -47,27 +53,37 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setPlusMinus(number : String) {
-        var number = number
-
-        if (number.toInt() > 0) {
-            number = "-$number"
-            txtOutput.text = number
-        } else if (number.toInt() < 0) {
-            number = number.toInt().absoluteValue.toString()
-            txtOutput.text = number
+    private fun setPlusMinus() {
+        if ("-" in operand) {
+            operand = operand.toInt().absoluteValue.toString()
+            txtOutput.text = operand
+        } else {
+            operand = "-$operand"
+            txtOutput.text = operand
         }
     }
 
-    private fun addDecimal(number : String) {
-        var number = number
-
-        if (number == "") {
-            number = "0."
-            txtOutput.text = number
+    private fun addDecimal() {
+        if (operand == "") {
+            operand = "0."
+            txtOutput.text = operand
         } else {
-            number += "."
-            txtOutput.text = number
+            operand += "."
+            txtOutput.text = operand
+        }
+    }
+
+    private fun addParens() {
+        if (operand == "") {
+            // Do nothing
+        } else {
+            operand = "($operand"
+            txtOutput.text = operand
+        }
+
+        if ("(" in operand) {
+            operand = "$operand)"
+            txtOutput.text = operand
         }
     }
 
@@ -140,11 +156,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnPlusMinus.setOnClickListener {
-            setPlusMinus(operand)
+            setPlusMinus()
         }
 
         btnPeriod.setOnClickListener {
-            addDecimal(operand)
+            addDecimal()
+        }
+
+        btnParen.setOnClickListener {
+            addParens()
         }
     }
 }
