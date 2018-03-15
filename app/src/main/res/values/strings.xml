@@ -12,7 +12,7 @@
     <string name="btn0">0</string>
     <string name="btnDivide">÷</string>
     <string name="btnClear">C</string>
-    <string name="btnParen">()</string>
+    <string name="btnLeftParen">(</string>
     <string name="btnPercent">%</string>
     <string name="btnMultiply">×</string>
     <string name="btnSubtract">-</string>

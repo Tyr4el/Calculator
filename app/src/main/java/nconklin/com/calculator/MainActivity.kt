@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setPlusMinus() {
         if ("-" in operand) {
-            operand = operand.toInt().absoluteValue.toString()
+            operand = operand.removePrefix("-")
             txtOutput.text = operand
         } else {
             operand = "-$operand"
@@ -69,20 +69,6 @@ class MainActivity : AppCompatActivity() {
             txtOutput.text = operand
         } else {
             operand += "."
-            txtOutput.text = operand
-        }
-    }
-
-    private fun addParens() {
-        if (operand == "") {
-            // Do nothing
-        } else {
-            operand = "($operand"
-            txtOutput.text = operand
-        }
-
-        if ("(" in operand) {
-            operand = "$operand)"
             txtOutput.text = operand
         }
     }
@@ -164,7 +150,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnParen.setOnClickListener {
-            addParens()
+
         }
     }
 }
